@@ -1,40 +1,55 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
-import { mockSubmissions } from '@/data/mockData';
-import { Eye, CheckCircle, XCircle, Clock, Users, DollarSign, TrendingUp } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { mockSubmissions } from "@/data/mockData";
+import {
+  Eye,
+  CheckCircle,
+  XCircle,
+  Clock,
+  Users,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
+import Loader from "@/components/Loader";
 
 export default function ManagerDashboard() {
   const [submissions, setSubmissions] = useState(mockSubmissions);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />;
 
   const handleStatusChange = (id, newStatus) => {
-    setSubmissions(prev => 
-      prev.map(submission => 
-        submission.id === id 
-          ? { ...submission, status: newStatus }
-          : submission
+    setSubmissions((prev) =>
+      prev.map((submission) =>
+        submission.id === id ? { ...submission, status: newStatus } : submission
       )
     );
   };
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'approved':
+      case "approved":
         return <Badge className="bg-green-100 text-green-800">Approved</Badge>;
-      case 'rejected':
+      case "rejected":
         return <Badge className="bg-red-100 text-red-800">Rejected</Badge>;
-      case 'pending':
+      case "pending":
         return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
@@ -43,9 +58,9 @@ export default function ManagerDashboard() {
 
   const stats = {
     totalSubmissions: submissions.length,
-    pendingReview: submissions.filter(s => s.status === 'pending').length,
-    approved: submissions.filter(s => s.status === 'approved').length,
-    averageFee: '₹45,000'
+    pendingReview: submissions.filter((s) => s.status === "pending").length,
+    approved: submissions.filter((s) => s.status === "approved").length,
+    averageFee: "₹45,000",
   };
 
   return (
@@ -53,8 +68,12 @@ export default function ManagerDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Manager Dashboard</h1>
-          <p className="text-gray-600">Manage artist submissions and track platform activity</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Manager Dashboard
+          </h1>
+          <p className="text-gray-600">
+            Manage artist submissions and track platform activity
+          </p>
         </div>
 
         {/* Stats Cards */}
@@ -66,8 +85,12 @@ export default function ManagerDashboard() {
                   <Users className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Submissions</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalSubmissions}</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Total Submissions
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.totalSubmissions}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -80,8 +103,12 @@ export default function ManagerDashboard() {
                   <Clock className="w-4 h-4 text-yellow-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Pending Review</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.pendingReview}</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Pending Review
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.pendingReview}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -95,7 +122,9 @@ export default function ManagerDashboard() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-600">Approved</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.approved}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.approved}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -108,8 +137,12 @@ export default function ManagerDashboard() {
                   <DollarSign className="w-4 h-4 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Avg. Fee Range</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.averageFee}</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Avg. Fee Range
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.averageFee}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -152,7 +185,11 @@ export default function ManagerDashboard() {
                         <TableCell>
                           <div className="flex flex-wrap gap-1">
                             {submission.category.map((cat) => (
-                              <Badge key={cat} variant="outline" className="text-xs capitalize">
+                              <Badge
+                                key={cat}
+                                variant="outline"
+                                className="text-xs capitalize"
+                              >
                                 {cat}
                               </Badge>
                             ))}
@@ -160,29 +197,43 @@ export default function ManagerDashboard() {
                         </TableCell>
                         <TableCell>{submission.city}</TableCell>
                         <TableCell>{submission.fee}</TableCell>
-                        <TableCell>{getStatusBadge(submission.status)}</TableCell>
                         <TableCell>
-                          {new Date(submission.submittedAt).toLocaleDateString()}
+                          {getStatusBadge(submission.status)}
+                        </TableCell>
+                        <TableCell>
+                          {new Date(
+                            submission.submittedAt
+                          ).toLocaleDateString()}
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
                             <Button variant="ghost" size="sm">
                               <Eye className="w-4 h-4" />
                             </Button>
-                            {submission.status === 'pending' && (
+                            {submission.status === "pending" && (
                               <>
-                                <Button 
-                                  variant="ghost" 
+                                <Button
+                                  variant="ghost"
                                   size="sm"
-                                  onClick={() => handleStatusChange(submission.id, 'approved')}
+                                  onClick={() =>
+                                    handleStatusChange(
+                                      submission.id,
+                                      "approved"
+                                    )
+                                  }
                                   className="text-green-600 hover:text-green-700 hover:bg-green-50"
                                 >
                                   <CheckCircle className="w-4 h-4" />
                                 </Button>
-                                <Button 
-                                  variant="ghost" 
+                                <Button
+                                  variant="ghost"
                                   size="sm"
-                                  onClick={() => handleStatusChange(submission.id, 'rejected')}
+                                  onClick={() =>
+                                    handleStatusChange(
+                                      submission.id,
+                                      "rejected"
+                                    )
+                                  }
                                   className="text-red-600 hover:text-red-700 hover:bg-red-50"
                                 >
                                   <XCircle className="w-4 h-4" />
