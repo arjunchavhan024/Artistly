@@ -225,27 +225,6 @@ The project includes:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-- **Frontend Developer**: [Your Name]
-- **UI/UX Design**: Modern, responsive design principles
-- **Project Type**: Frontend Development Assignment
-
-## 📞 Support
-
-For support and questions:
-
-- Email: support@artistly.com
-- Documentation: [Project Wiki](https://github.com/your-username/artistly/wiki)
-- Issues: [GitHub Issues](https://github.com/your-username/artistly/issues)
-
-## 🎯 Assignment Completion
-
-This project fulfills all requirements for the Frontend Developer Test Assignment:
 
 ✅ **Technical Requirements**
 
