@@ -25,7 +25,7 @@ A modern, responsive web application built with React.js and Next.js for connect
 
 ## 🚀 Live Demo
 
-**Live URL**: [https://artistly-demo.vercel.app](https://artistly-demo.vercel.app)
+**Live URL**: [https://art-arjunchavhan024.netlify.app/](https://art-arjunchavhan024.netlify.app/)
 
 ## 🛠️ Tech Stack
 
